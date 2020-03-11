@@ -9,7 +9,7 @@ parameters:
   required: true
 - description: Defines name of the microservice
   name: MICROSERVICE
-  value: console-gateway-api
+  value: console-jenkins-api
   required: true
 - description: Defines max memory
   name: MAX_MEMORY
