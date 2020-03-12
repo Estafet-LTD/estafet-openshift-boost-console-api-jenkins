@@ -63,7 +63,7 @@ public class AppState {
 			log.info("buildName - " + buildName);
 			if (buildName != null) {
 				IBuild build = builds.get(buildName);
-				return State.fromString(build.getBuildStatus().getPhase());		
+				return build != null ? State.fromString(build.getBuildStatus().getPhase()) : null;		
 			} else {
 				return null;
 			}
