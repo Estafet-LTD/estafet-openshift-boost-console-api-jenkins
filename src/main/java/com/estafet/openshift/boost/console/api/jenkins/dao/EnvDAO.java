@@ -1,7 +1,5 @@
 package com.estafet.openshift.boost.console.api.jenkins.dao;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,12 +12,7 @@ public class EnvDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
-	@SuppressWarnings("unchecked")
-	public List<Env> getEnvs() {
-		return entityManager.createQuery("Select e from Env e").getResultList();
-	}
-	
+		
 	public Env getEnv(String envId) {
 		return entityManager.find(Env.class, envId);
 	}

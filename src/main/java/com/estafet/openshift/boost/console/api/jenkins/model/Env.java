@@ -27,7 +27,7 @@ public class Env {
 	@Column(name = "LIVE", nullable = false)
 	private boolean live;
 
-	@OneToMany(mappedBy = "env", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "env", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Microservice> microservices = new HashSet<Microservice>();
 
 	public String getName() {

@@ -2,7 +2,7 @@ package com.estafet.openshift.boost.console.api.jenkins.dto;
 
 public enum State {
 
-	FAILED("Failed"), COMPLETE("Complete"), RUNNING("Running");
+	NEW("New"), FAILED("Failed"), COMPLETE("Complete"), RUNNING("Running");
 
 	private String value;
 
