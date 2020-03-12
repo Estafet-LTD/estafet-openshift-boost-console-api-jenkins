@@ -2,11 +2,16 @@ package com.estafet.openshift.boost.console.api.jenkins.dto;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.estafet.openshift.boost.console.api.jenkins.model.Microservice;
 import com.openshift.restclient.model.IBuild;
 
 public class AppState {
 
+	private static final Logger log = LoggerFactory.getLogger(EnvState.class);
+	
 	private State build;
 
 	private State promote;
@@ -47,6 +52,7 @@ public class AppState {
 		}
 		
 		public AppState build() {
+			log.info(microservice.toString());
 			AppState appState = new AppState();
 			appState.setBuild(getBuildState(microservice.buildBuildName()));
 			appState.setPromote(getBuildState(microservice.promoteBuildName()));
@@ -56,7 +62,7 @@ public class AppState {
 		private State getBuildState(String buildName) {
 			if (buildName != null) {
 				IBuild build = builds.get(buildName);
-				return State.valueOf(build.getBuildStatus().toString());	
+				return State.fromString(build.getBuildStatus().getPhase());		
 			} else {
 				return null;
 			}

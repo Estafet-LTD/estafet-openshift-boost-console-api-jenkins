@@ -109,6 +109,7 @@ public class EnvState {
 		}
 		
 		public EnvState build() {
+			log.info(env.toString());
 			EnvState envState = new EnvState();
 			if (env.getName().equals("build")) {
 				envState.setBuild(getBuildState(env.buildBuildName()));
