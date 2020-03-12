@@ -34,10 +34,11 @@ public final class OpenShiftClient {
 				.build();
 	}
 	
-	public List<IBuild> getBuilds(String namespace) {
-		Span span = tracer.buildSpan("OpenShiftClient.getBuildAllPipeline").start();
+	@SuppressWarnings("deprecation")
+	public List<IBuild> getBuilds() {
+		Span span = tracer.buildSpan("OpenShiftClient.getBuilds").start();
 		try {
-			return getClient().list(ResourceKind.BUILD, product + namespace);
+			return getClient().list(ResourceKind.BUILD, product + "-cicd");
 		} catch (RuntimeException e) {
 			throw handleException(span, e);
 		} finally {

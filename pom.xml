@@ -9,7 +9,7 @@
 
 	<parent>
 		<groupId>com.estafet.openshift.boost</groupId>
-		<artifactId>estafet-openshift-boost-springboot</artifactId>
+		<artifactId>estafet-openshift-boost-springboot-db</artifactId>
 		<version>1.0.5</version>
 	</parent>
 	
@@ -34,6 +34,11 @@
 			<artifactId>estafet-openshift-boost-commons-lib</artifactId>
 			<version>0.0.5</version>
 		</dependency>	
+		<dependency>
+			<groupId>com.estafet.openshift.boost</groupId>
+			<artifactId>estafet-openshift-boost-messages-lib</artifactId>
+			<version>0.0.13</version>
+		</dependency>		
 	</dependencies>
 
 </project>
