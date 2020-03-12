@@ -131,7 +131,7 @@ public class EnvState {
 			if (buildName != null) {
 				IBuild build = builds.get(buildName);
 				log.info("build status - " + build.getBuildStatus().getPhase());
-				return State.valueOf(build.getBuildStatus().getPhase());	
+				return State.fromString(build.getBuildStatus().getPhase());	
 			} else {
 				return null;
 			}

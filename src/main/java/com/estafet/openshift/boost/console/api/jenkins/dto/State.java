@@ -17,5 +17,14 @@ public enum State {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
+	public static State fromString(String value) {
+        for (State state : State.values()) {
+            if (state.value.equalsIgnoreCase(value)) {
+                return state;
+            }
+        }
+        throw new RuntimeException("Cannot match enum for - " + value);
+    }
 
 }
