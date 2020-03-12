@@ -13,7 +13,7 @@ import com.estafet.openshift.boost.console.api.jenkins.dto.EnvState;
 import com.estafet.openshift.boost.console.api.jenkins.service.StateService;
 
 @RestController
-public class StatesController {
+public class StateController {
 
 	@Autowired
 	private StateService stateService;

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Dennis (generated)" id="1584028428927-1">
+        <createSequence sequenceName="microservice_id_seq"/>
+    </changeSet>
+    <changeSet author="Dennis (generated)" id="1584028428927-2">
+        <createTable tableName="env">
+            <column name="env_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="live" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_date" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dennis (generated)" id="1584028428927-3">
+        <createTable tableName="microservice">
+            <column name="microservice_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="microservice" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="env_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dennis (generated)" id="1584028428927-4">
+        <addPrimaryKey columnNames="env_id" constraintName="env_pkey" tableName="env"/>
+    </changeSet>
+    <changeSet author="Dennis (generated)" id="1584028428927-5">
+        <addPrimaryKey columnNames="microservice_id" constraintName="microservice_pkey" tableName="microservice"/>
+    </changeSet>
+    <changeSet author="Dennis (generated)" id="1584028428927-6">
+        <addUniqueConstraint columnNames="env_id, microservice" constraintName="microservice_key" tableName="microservice"/>
+    </changeSet>
+    <changeSet author="Dennis (generated)" id="1584028428927-7">
+        <addForeignKeyConstraint baseColumnNames="env_id" baseTableName="microservice" constraintName="microservice_to_env_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="env_id" referencedTableName="env"/>
+    </changeSet>
+</databaseChangeLog>

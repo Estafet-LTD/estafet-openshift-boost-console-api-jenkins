@@ -13,6 +13,11 @@
 		<version>1.0.5</version>
 	</parent>
 	
+	<properties>
+		<microservice>console-jenkins-api</microservice>
+		<entity.package>com.estafet.openshift.boost.console.api.jenkins.model</entity.package>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.openshift</groupId>
