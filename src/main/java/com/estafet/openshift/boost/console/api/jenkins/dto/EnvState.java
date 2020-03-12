@@ -9,8 +9,11 @@ import org.slf4j.LoggerFactory;
 
 import com.estafet.openshift.boost.console.api.jenkins.model.Env;
 import com.estafet.openshift.boost.console.api.jenkins.model.Microservice;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.openshift.restclient.model.IBuild;
 
+@JsonInclude(Include.NON_NULL)
 public class EnvState {
 
 	private static final Logger log = LoggerFactory.getLogger(EnvState.class);
@@ -111,6 +114,7 @@ public class EnvState {
 		public EnvState build() {
 			log.info(env.toString());
 			EnvState envState = new EnvState();
+			envState.setName(env.getName());
 			if (env.getName().equals("build")) {
 				envState.setBuild(getBuildState(env.buildBuildName()));
 				envState.setPromote(getBuildState(env.promoteBuildName()));

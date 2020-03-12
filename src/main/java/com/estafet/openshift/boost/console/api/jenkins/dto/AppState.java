@@ -6,15 +6,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.estafet.openshift.boost.console.api.jenkins.model.Microservice;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.openshift.restclient.model.IBuild;
 
+@JsonInclude(Include.NON_NULL)
 public class AppState {
 
 	private static final Logger log = LoggerFactory.getLogger(EnvState.class);
 	
+	private String name;
+	
 	private State build;
 
 	private State promote;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public State getBuild() {
 		return build;
@@ -54,6 +67,7 @@ public class AppState {
 		public AppState build() {
 			log.info(microservice.toString());
 			AppState appState = new AppState();
+			appState.setName(microservice.getMicroservice());
 			appState.setBuild(getBuildState(microservice.buildBuildName()));
 			appState.setPromote(getBuildState(microservice.promoteBuildName()));
 			return appState;
