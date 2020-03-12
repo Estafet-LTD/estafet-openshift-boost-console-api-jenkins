@@ -102,7 +102,8 @@ objects:
                 value: welcome1
               - name: CONSOLE_JENKINS_API_DB_USER
                 value: postgres
-              - name: CONSOLE_JENKINS_API_JDBC_URL                                  
+              - name: CONSOLE_JENKINS_API_JDBC_URL   
+                value: jdbc:postgresql://postgresql.${NAMESPACE}.svc:5432/${NAMESPACE}-${MICROSERVICE}                               
             image: ${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${MICROSERVICE}:${DOCKER_IMAGE_LABEL}
             imagePullPolicy: Always
             name: ${MICROSERVICE}
