@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.estafet.openshift.boost.console.api.jenkins.model.Env;
 import com.estafet.openshift.boost.console.api.jenkins.model.Microservice;
 import com.openshift.restclient.model.IBuild;
 
 public class EnvState {
 
+	private static final Logger log = LoggerFactory.getLogger(EnvState.class);
+	
 	private String name;
 
 	private State build;
@@ -125,6 +130,7 @@ public class EnvState {
 		private State getBuildState(String buildName) {
 			if (buildName != null) {
 				IBuild build = builds.get(buildName);
+				log.info("build status - " + build.getBuildStatus().toString());
 				return State.valueOf(build.getBuildStatus().toString());	
 			} else {
 				return null;
