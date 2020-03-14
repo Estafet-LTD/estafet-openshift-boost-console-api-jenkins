@@ -2,10 +2,13 @@ package com.estafet.openshift.boost.console.api.jenkins.openshift;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +24,8 @@ import io.opentracing.tag.Tags;
 @Component
 public final class OpenShiftClient {
 
+	private static final Logger log = LoggerFactory.getLogger(OpenShiftClient.class);
+	
 	@Autowired
 	private Tracer tracer;
 	
@@ -40,12 +45,12 @@ public final class OpenShiftClient {
 		try {
 			return getClient().list(ResourceKind.BUILD, product + "-cicd");
 		} catch (RuntimeException e) {
-			throw handleException(span, e);
+			log.error("an error has occured whilst retreiving the builds", handleException(span, e));
+			return new ArrayList<IBuild>();
 		} finally {
 			span.finish();
 		}
 	}
-
 	
 	private RuntimeException handleException(Span span, RuntimeException e) {
 		Tags.ERROR.set(span, true);
