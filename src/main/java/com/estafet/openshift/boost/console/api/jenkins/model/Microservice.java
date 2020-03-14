@@ -71,6 +71,12 @@ public class Microservice {
 	public static class MicroserviceBuilder {
 		
 		private String microservice;
+		private Env env;
+
+		public MicroserviceBuilder setEnv(Env env) {
+			this.env = env;
+			return this;
+		}
 
 		public MicroserviceBuilder setMicroservice(String microservice) {
 			this.microservice = microservice;
@@ -80,6 +86,7 @@ public class Microservice {
 		public Microservice build() {
 			Microservice app = new Microservice();
 			app.setMicroservice(microservice);
+			app.setEnv(env);
 			return app;
 		}
 		

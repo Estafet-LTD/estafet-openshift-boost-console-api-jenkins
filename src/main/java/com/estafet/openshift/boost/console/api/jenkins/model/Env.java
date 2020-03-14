@@ -175,10 +175,10 @@ public class Env {
 	public void add(EnvironmentApp app) {
 		Microservice microservice = Microservice.builder()
 				.setMicroservice(app.getName())
+				.setEnv(this)
 				.build();
 		if (!microservices.contains(microservice)) {
 			microservices.add(microservice);
-			microservice.setEnv(this);
 		}
 	}
 
