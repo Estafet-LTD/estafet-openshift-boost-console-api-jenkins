@@ -20,7 +20,11 @@ public class BuildUtil {
 	}
 
 	public static Date buildDate(IBuild build) {
-		return DateUtils.getDate(build.getCreationTimeStamp());
+		if (isValidDate(build)) {
+			return DateUtils.getDate(build.getCreationTimeStamp());	
+		} else {
+			return new Date();
+		}
 	}
 
 	public static String buildName(IBuild build) {

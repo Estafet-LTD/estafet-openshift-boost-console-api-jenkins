@@ -51,8 +51,7 @@ public class StateService {
 			log.info("checking build - " + build.getName());
 			String buildName = BuildUtil.buildName(build);
 			if (!builds.keySet().contains(buildName)
-					|| (BuildUtil.isValidDate(build) && BuildUtil.isValidDate(builds.get(buildName))
-							&& BuildUtil.buildDate(build).after(BuildUtil.buildDate(builds.get(buildName))))) {
+					|| BuildUtil.buildDate(build).after(BuildUtil.buildDate(builds.get(buildName)))) {
 				log.info("adding build - " + buildName);
 				builds.put(buildName, build);
 			}
