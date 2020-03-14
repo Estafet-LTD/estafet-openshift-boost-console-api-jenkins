@@ -10,8 +10,13 @@ import com.openshift.restclient.model.IBuild;
 public class BuildUtil {
 
 	private static Pattern pattern = Pattern.compile("(.+)(\\-\\d+)");
+	private static Pattern datePattern = Pattern.compile("\\d{4}\\-\\d{2}-\\d{2}T\\d{2}\\:\\d{2}\\:\\d{2}Z");
 
 	private BuildUtil() {
+	}
+
+	public static boolean isValidDate(IBuild build) {
+		return build.getCreationTimeStamp() != null && datePattern.matcher(build.getCreationTimeStamp()).matches();
 	}
 
 	public static Date buildDate(IBuild build) {

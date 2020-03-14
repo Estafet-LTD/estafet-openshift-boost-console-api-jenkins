@@ -20,7 +20,7 @@ import com.openshift.restclient.model.IBuild;
 public class StateService {
 
 	private static final Logger log = LoggerFactory.getLogger(StateService.class);
-	
+
 	@Autowired
 	private OpenShiftClient client;
 
@@ -42,10 +42,7 @@ public class StateService {
 	}
 
 	private EnvState getState(String envId, Map<String, IBuild> builds) {
-		return EnvState.builder()
-				.setEnv(envDAO.getEnv(envId))
-				.setBuilds(builds)
-				.build();
+		return EnvState.builder().setEnv(envDAO.getEnv(envId)).setBuilds(builds).build();
 	}
 
 	private Map<String, IBuild> latestBuilds() {
@@ -53,8 +50,8 @@ public class StateService {
 		for (IBuild build : client.getBuilds()) {
 			log.info("checking build - " + build.getName());
 			String buildName = BuildUtil.buildName(build);
-			if (!builds.keySet().contains(buildName)
-					|| BuildUtil.buildDate(build).after(BuildUtil.buildDate(builds.get(buildName)))) {
+			if (!builds.keySet().contains(buildName) || (BuildUtil.isValidDate(build)
+					&& BuildUtil.buildDate(build).after(BuildUtil.buildDate(builds.get(buildName))))) {
 				log.info("adding build - " + buildName);
 				builds.put(buildName, build);
 			}
