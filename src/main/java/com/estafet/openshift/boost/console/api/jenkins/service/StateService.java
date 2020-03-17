@@ -1,7 +1,6 @@
 package com.estafet.openshift.boost.console.api.jenkins.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,16 +51,11 @@ public class StateService {
 		for (IBuild build : client.getBuilds()) {
 			log.info("checking build - " + build.getName());
 			String buildName = BuildUtil.buildName(build);
-			if (!builds.keySet().contains(buildName)) {
-				log.info("adding build - " + buildName);
-				builds.put(buildName, build);
-			} else {
-				Date currentDate = new Date();
-				Date buildDate = DateUtils.getDate(build.getCreationTimeStamp(), currentDate);
-				Date latestBuildDate = DateUtils.getDate(builds.get(buildName).getCreationTimeStamp(), currentDate);
-				if (buildDate.after(latestBuildDate)) {
+			if (DateUtils.isValidDate(build.getCreationTimeStamp())) {
+				if (builds.get(buildName) == null || DateUtils.getDate(build.getCreationTimeStamp())
+						.after(DateUtils.getDate(builds.get(buildName).getCreationTimeStamp()))) {
 					log.info("adding build - " + buildName);
-					builds.put(buildName, build);	
+					builds.put(buildName, build);
 				}
 			}
 		}
