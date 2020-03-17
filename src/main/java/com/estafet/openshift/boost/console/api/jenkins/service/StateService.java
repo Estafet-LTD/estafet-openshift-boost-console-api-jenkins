@@ -52,12 +52,17 @@ public class StateService {
 		for (IBuild build : client.getBuilds()) {
 			log.info("checking build - " + build.getName());
 			String buildName = BuildUtil.buildName(build);
-			Date currentDate = new Date();
-			Date buildDate = DateUtils.getDate(build.getCreationTimeStamp(), currentDate);
-			Date latestBuildDate = DateUtils.getDate(builds.get(buildName).getCreationTimeStamp(), currentDate);
-			if (!builds.keySet().contains(buildName) || buildDate.after(latestBuildDate)) {
+			if (!builds.keySet().contains(buildName)) {
 				log.info("adding build - " + buildName);
 				builds.put(buildName, build);
+			} else {
+				Date currentDate = new Date();
+				Date buildDate = DateUtils.getDate(build.getCreationTimeStamp(), currentDate);
+				Date latestBuildDate = DateUtils.getDate(builds.get(buildName).getCreationTimeStamp(), currentDate);
+				if (buildDate.after(latestBuildDate)) {
+					log.info("adding build - " + buildName);
+					builds.put(buildName, build);	
+				}
 			}
 		}
 		return builds;
