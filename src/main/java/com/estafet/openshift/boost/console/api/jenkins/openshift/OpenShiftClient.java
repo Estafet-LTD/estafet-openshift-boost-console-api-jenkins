@@ -10,8 +10,10 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import com.estafet.openshift.boost.commons.lib.env.ENV;
 import com.openshift.restclient.ClientBuilder;
 import com.openshift.restclient.IClient;
 import com.openshift.restclient.ResourceKind;
@@ -28,22 +30,27 @@ public final class OpenShiftClient {
 	
 	@Autowired
 	private Tracer tracer;
-	
-	private String product;
 
 	private IClient getClient() {
-		product = System.getenv("PRODUCT");
-		return new ClientBuilder("https://" + System.getenv("OPENSHIFT_HOST_PORT"))
-				.withUserName(System.getenv("OPENSHIFT_USER"))
-				.withPassword(System.getenv("OPENSHIFT_PASSWORD"))
+		return new ClientBuilder("https://" + ENV.OPENSHIFT_HOST_PORT)
+				.usingToken(getToken())
 				.build();
+	}
+	
+	@Cacheable(cacheNames = { "token" })
+	public String getToken() {
+		IClient client = new ClientBuilder("https://" + ENV.OPENSHIFT_HOST_PORT)
+				.withUserName(ENV.OPENSHIFT_USER)
+				.withPassword(ENV.OPENSHIFT_PASSWORD)
+				.build();
+		return client.getAuthorizationContext().getToken();
 	}
 	
 	@SuppressWarnings("deprecation")
 	public List<IBuild> getBuilds() {
 		Span span = tracer.buildSpan("OpenShiftClient.getBuilds").start();
 		try {
-			return getClient().list(ResourceKind.BUILD, product + "-cicd");
+			return getClient().list(ResourceKind.BUILD, ENV.PRODUCT + "-cicd");
 		} catch (RuntimeException e) {
 			log.error("an error has occured whilst retreiving the builds", handleException(span, e));
 			return new ArrayList<IBuild>();
