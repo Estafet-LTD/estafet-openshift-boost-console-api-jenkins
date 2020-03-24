@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +16,13 @@ import com.estafet.openshift.boost.commons.lib.date.DateUtils;
 import com.estafet.openshift.boost.console.api.jenkins.dao.EnvDAO;
 import com.estafet.openshift.boost.console.api.jenkins.dto.EnvState;
 import com.estafet.openshift.boost.console.api.jenkins.openshift.OpenShiftClient;
-import com.estafet.openshift.boost.console.api.jenkins.util.BuildUtil;
 import com.openshift.restclient.model.IBuild;
 
 @Service
 public class StateService {
 
 	private static final Logger log = LoggerFactory.getLogger(StateService.class);
+	private static Pattern pattern = Pattern.compile("(.+)(\\-\\d+)");
 
 	@Autowired
 	private OpenShiftClient client;
@@ -50,7 +52,7 @@ public class StateService {
 		Map<String, IBuild> builds = new HashMap<String, IBuild>();
 		for (IBuild build : client.getBuilds()) {
 			log.info("checking build - " + build.getName());
-			String buildName = BuildUtil.buildName(build);
+			String buildName = buildName(build);
 			if (DateUtils.isValidDate(build.getCreationTimeStamp())) {
 				if (builds.get(buildName) == null || DateUtils.getDate(build.getCreationTimeStamp())
 						.after(DateUtils.getDate(builds.get(buildName).getCreationTimeStamp()))) {
@@ -60,6 +62,12 @@ public class StateService {
 			}
 		}
 		return builds;
+	}
+	
+	private String buildName(IBuild build) {
+		Matcher matcher = pattern.matcher(build.getName());
+		matcher.find();
+		return matcher.group(1);
 	}
 
 }
