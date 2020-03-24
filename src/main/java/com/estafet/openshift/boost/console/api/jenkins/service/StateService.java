@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.estafet.openshift.boost.commons.lib.date.DateUtils;
 import com.estafet.openshift.boost.console.api.jenkins.dao.EnvDAO;
 import com.estafet.openshift.boost.console.api.jenkins.dto.EnvState;
+import com.estafet.openshift.boost.console.api.jenkins.model.Env;
 import com.estafet.openshift.boost.console.api.jenkins.openshift.OpenShiftClient;
 import com.openshift.restclient.model.IBuild;
 
@@ -33,10 +34,9 @@ public class StateService {
 	public List<EnvState> getStates() {
 		Map<String, IBuild> builds = latestBuilds();
 		List<EnvState> states = new ArrayList<EnvState>();
-		states.add(getState("build", builds));
-		states.add(getState("test", builds));
-		states.add(getState("green", builds));
-		states.add(getState("blue", builds));
+		for (Env env : envDAO.getEnvs()) {
+			states.add(getState(env.getName(), builds));	
+		}
 		return states;
 	}
 
