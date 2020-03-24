@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.estafet.openshift.boost.console.api.jenkins.dao.EnvDAO;
 import com.estafet.openshift.boost.console.api.jenkins.model.Env;
 import com.estafet.openshift.boost.messages.environments.Environment;
-import com.estafet.openshift.boost.messages.environments.EnvironmentApp;
 
 @Service
 public class EnvironmentService {
@@ -17,24 +16,13 @@ public class EnvironmentService {
 	
 	@Transactional
 	public void updateEnv(Environment environment) {
-		Env env = envDAO.getEnv(environment.getName());
-		if (env == null) {
-			env = Env.builder()
-					.setName(environment.getName())
-					.setUpdatedDate(environment.getUpdatedDate())
-					.build();
-			updateApps(environment, env);
-			envDAO.createEnv(env);
-		} else if (!env.getUpdatedDate().equals(environment.getUpdatedDate())) {
-			updateApps(environment, env);
-			envDAO.updateEnv(env);	
+		Env oldEnv = envDAO.getEnv(environment.getName());
+		Env newEnv = Env.getEnv(environment);
+		if (oldEnv == null) {
+			envDAO.createEnv(newEnv);
+		} else if (!oldEnv.getUpdatedDate().equals(newEnv.getUpdatedDate())) {
+			envDAO.updateEnv(newEnv);	
 		}
 	}
 
-	private void updateApps(Environment environment, Env env) {
-		for (EnvironmentApp app : environment.getApps()) {
-			env.add(app);
-		}
-	}
-	
 }

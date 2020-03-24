@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.estafet.openshift.boost.messages.environments.Environment;
 import com.estafet.openshift.boost.messages.environments.EnvironmentApp;
 
 @Entity
@@ -180,6 +181,17 @@ public class Env {
 		if (!microservices.contains(microservice)) {
 			microservices.add(microservice);
 		}
+	}
+	
+	public static Env getEnv(Environment environment) {
+		Env env = Env.builder()
+				.setName(environment.getName())
+				.setUpdatedDate(environment.getUpdatedDate())
+				.build();
+		for (EnvironmentApp app : environment.getApps()) {
+			env.add(app);
+		}
+		return env;
 	}
 
 }
