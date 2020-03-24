@@ -21,7 +21,7 @@ public class EnvironmentService {
 		if (oldEnv == null) {
 			envDAO.createEnv(newEnv);
 		} else if (!oldEnv.getUpdatedDate().equals(newEnv.getUpdatedDate())) {
-			envDAO.updateEnv(newEnv);	
+			envDAO.updateEnv(oldEnv.update(newEnv));	
 		}
 	}
 

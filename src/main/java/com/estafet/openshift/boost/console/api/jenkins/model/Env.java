@@ -26,11 +26,16 @@ public class Env {
 	private String updatedDate;
 
 	@Column(name = "LIVE", nullable = false)
-	private boolean live;
+	private Boolean live;
 
 	@OneToMany(mappedBy = "env", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Microservice> microservices = new HashSet<Microservice>();
 
+	public void addMicroservice(Microservice microservice) {
+		microservices.add(microservice);
+		microservice.setEnv(this);
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -43,11 +48,11 @@ public class Env {
 		return updatedDate;
 	}
 
-	public boolean isLive() {
+	public Boolean getLive() {
 		return live;
 	}
 
-	public void setLive(boolean live) {
+	public void setLive(Boolean live) {
 		this.live = live;
 	}
 
@@ -141,6 +146,26 @@ public class Env {
 			return env;
 		}
 
+	}
+	
+	public boolean microserviceExists(Microservice newMicroservice) {
+		for (Microservice microservice : microservices) {
+			if (microservice.getMicroservice().equals(newMicroservice.getMicroservice())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Env update(Env newEnv) {
+		this.updatedDate = newEnv.updatedDate;
+		this.live = newEnv.live;
+		for (Microservice newMicroservice : newEnv.microservices) {
+			if (microserviceExists(newMicroservice)) {
+				addMicroservice(newMicroservice);
+			}
+		}
+		return this;
 	}
 
 	@Override
