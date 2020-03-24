@@ -161,7 +161,7 @@ public class Env {
 		this.updatedDate = newEnv.updatedDate;
 		this.live = newEnv.live;
 		for (Microservice newMicroservice : newEnv.microservices) {
-			if (microserviceExists(newMicroservice)) {
+			if (!microserviceExists(newMicroservice)) {
 				addMicroservice(newMicroservice);
 			}
 		}
