@@ -57,10 +57,10 @@ public class Microservice {
 	public String promoteBuildName() {
 		if (env.getName().equals("build")) {
 			return "release-" + microservice;
-		} else if (env.getName().equals("test")) {
+		} else if (env.getNext().equals("prod")) {
 			return "promote-to-prod-" + microservice;
 		} else {
-			return null;
+			return "promote-" + microservice;
 		}
 	}
 	

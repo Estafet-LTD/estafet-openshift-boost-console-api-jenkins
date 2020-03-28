@@ -27,6 +27,9 @@ public class Env {
 
 	@Column(name = "LIVE", nullable = false)
 	private Boolean live;
+	
+	@Column(name = "NEXT", nullable = true)
+	private String next;
 
 	@OneToMany(mappedBy = "env", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Microservice> microservices = new HashSet<Microservice>();
@@ -36,6 +39,14 @@ public class Env {
 		microservice.setEnv(this);
 	}
 	
+	public String getNext() {
+		return next;
+	}
+
+	public void setNext(String next) {
+		this.next = next;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -77,10 +88,8 @@ public class Env {
 	}
 
 	public String testBuildName() {
-		if ((name.equals("green") || name.equals("blue")) && !live) {
-			return "prod-test";
-		} else if (name.equals("test")) {
-			return "qa-test";
+		if (!name.equals("build")) {
+			return "qa-" + name;
 		} else {
 			return null;
 		}
@@ -89,10 +98,10 @@ public class Env {
 	public String promoteBuildName() {
 		if (name.equals("build")) {
 			return "release-all";
-		} else if (name.equals("test")) {
+		} else if (next.equals("prod")) {
 			return "promote-all-to-prod";
 		} else {
-			return null;
+			return "promote-all-" + name;
 		}
 	}
 	
@@ -122,6 +131,12 @@ public class Env {
 		private String name;
 		private String updatedDate;
 		private boolean live;
+		private String next;
+
+		public EnvBuilder setNext(String next) {
+			this.next = next;
+			return this;
+		}
 
 		public EnvBuilder setLive(boolean live) {
 			this.live = live;
@@ -143,6 +158,7 @@ public class Env {
 			env.setName(name);
 			env.setUpdatedDate(updatedDate);
 			env.setLive(live);
+			env.setNext(next);
 			return env;
 		}
 
@@ -160,6 +176,7 @@ public class Env {
 	public Env update(Env newEnv) {
 		this.updatedDate = newEnv.updatedDate;
 		this.live = newEnv.live;
+		this.next = newEnv.next;
 		for (Microservice newMicroservice : newEnv.microservices) {
 			if (!microserviceExists(newMicroservice)) {
 				addMicroservice(newMicroservice);
@@ -212,6 +229,7 @@ public class Env {
 		Env env = Env.builder()
 				.setName(environment.getName())
 				.setUpdatedDate(environment.getUpdatedDate())
+				.setNext(environment.getNext())
 				.build();
 		for (EnvironmentApp app : environment.getApps()) {
 			env.add(app);
