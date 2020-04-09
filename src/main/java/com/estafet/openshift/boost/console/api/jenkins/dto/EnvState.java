@@ -118,13 +118,13 @@ public class EnvState {
 			if (env.getName().equals("build")) {
 				envState.setBuild(getBuildState(env.buildBuildName()));
 				envState.setPromote(getBuildState(env.promoteBuildName()));
-			} else if (env.getName().equals("test")) {
-				envState.setTest(getBuildState(env.testBuildName()));
-				envState.setPromote(getBuildState(env.promoteBuildName()));
 			} else if (env.getName().equals("green") || env.getName().equals("blue")) {
 				envState.setTest(getBuildState(env.testBuildName()));
 				envState.setBackOut(getBuildState(env.backOutBuildName()));
 				envState.setGoLive(getBuildState(env.goLiveBuildName()));
+			} else {
+				envState.setTest(getBuildState(env.testBuildName()));
+				envState.setPromote(getBuildState(env.promoteBuildName()));
 			}
 			for (Microservice microservice : env.getMicroservices()) {
 				envState.addMicroservice(microservice, builds);

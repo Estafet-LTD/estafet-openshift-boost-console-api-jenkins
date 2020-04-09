@@ -90,6 +90,8 @@ public class Env {
 	public String testBuildName() {
 		if (!name.equals("build")) {
 			return "qa-" + name;
+		} else if (name.equals("green") || name.equals("blue")) {
+			return "qa-prod";
 		} else {
 			return null;
 		}
