@@ -62,7 +62,7 @@ public class Microservice {
 		} else if (env.getNext().equals("prod")) {
 			return "promote-to-prod-" + microservice;
 		} else {
-			return "promote-" + microservice;
+			return "promote-" + env.getName() + "-" + microservice;
 		}
 	}
 	
