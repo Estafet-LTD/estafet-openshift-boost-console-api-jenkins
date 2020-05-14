@@ -94,6 +94,11 @@ objects:
                   secretKeyRef:
                     name: ${MICROSERVICE} 
                     key: OPENSHIFT_PASSWORD   
+              - name: JAEGER_SERVICE_NAME
+                valueFrom:
+                  configMapKeyRef:
+                    name: ${MICROSERVICE} 
+                    key: JAEGER_SERVICE_NAME                    
               - name: JAEGER_SAMPLER_TYPE
                 valueFrom:
                   configMapKeyRef:
