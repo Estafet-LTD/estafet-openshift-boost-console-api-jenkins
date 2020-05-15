@@ -1,0 +1,5 @@
+setup:
+  - name: create-postgres-db
+    app: console-jenkins-api
+    repo: estafet-openshift-boost-console-api-jenkins  
+    reset_db: false
