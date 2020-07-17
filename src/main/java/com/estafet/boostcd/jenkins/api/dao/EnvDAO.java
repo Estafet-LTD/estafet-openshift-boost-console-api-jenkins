@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.jenkins.dao;
+package com.estafet.boostcd.jenkins.api.dao;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
-import com.estafet.openshift.boost.console.api.jenkins.model.Env;
+import com.estafet.boostcd.jenkins.api.model.Env;
 
 @Repository
 public class EnvDAO {

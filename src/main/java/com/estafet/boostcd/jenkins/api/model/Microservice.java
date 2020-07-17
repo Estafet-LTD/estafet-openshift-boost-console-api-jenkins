@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.jenkins.model;
+package com.estafet.boostcd.jenkins.api.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -11,7 +11,7 @@
 	
 	<properties>
 		<microservice>console-jenkins-api</microservice>
-		<entity.package>com.estafet.openshift.boost.console.api.jenkins.model</entity.package>
+		<entity.package>com.estafet.boostcd.jenkins.api.model</entity.package>
 	</properties>
 	
 	<dependencies>
@@ -35,6 +35,19 @@
 				</exclusion>
 			</exclusions>			
 		</dependency>		
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+		</dependency>		
+		<dependency>
+			<groupId>com.estafet.boostcd</groupId>
+			<artifactId>commons-lib</artifactId>
+			<version>0.0.16-SNAPSHOT</version>
+		</dependency>			
 		<dependency>
 			<groupId>com.estafet.boostcd</groupId>
 			<artifactId>messages-lib</artifactId>

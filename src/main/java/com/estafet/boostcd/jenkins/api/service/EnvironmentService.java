@@ -1,11 +1,11 @@
-package com.estafet.openshift.boost.console.api.jenkins.service;
+package com.estafet.boostcd.jenkins.api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.estafet.openshift.boost.console.api.jenkins.dao.EnvDAO;
-import com.estafet.openshift.boost.console.api.jenkins.model.Env;
+import com.estafet.boostcd.jenkins.api.dao.EnvDAO;
+import com.estafet.boostcd.jenkins.api.model.Env;
 import com.estafet.openshift.boost.messages.environments.Environment;
 
 @Service

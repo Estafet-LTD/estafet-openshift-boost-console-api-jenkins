@@ -1,10 +1,10 @@
-package com.estafet.openshift.boost.console.api.jenkins.jms;
+package com.estafet.boostcd.jenkins.api.jms;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import com.estafet.openshift.boost.console.api.jenkins.service.EnvironmentService;
+import com.estafet.boostcd.jenkins.api.service.EnvironmentService;
 import com.estafet.openshift.boost.messages.environments.Environment;
 
 import io.opentracing.Tracer;

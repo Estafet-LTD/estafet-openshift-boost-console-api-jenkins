@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.jenkins;
+package com.estafet.boostcd.jenkins.api;
 
 import javax.jms.ConnectionFactory;
 

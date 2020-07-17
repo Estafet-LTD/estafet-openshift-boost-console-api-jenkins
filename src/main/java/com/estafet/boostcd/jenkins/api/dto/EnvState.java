@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.jenkins.dto;
+package com.estafet.boostcd.jenkins.api.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.estafet.openshift.boost.console.api.jenkins.model.Env;
-import com.estafet.openshift.boost.console.api.jenkins.model.Microservice;
+import com.estafet.boostcd.jenkins.api.model.Env;
+import com.estafet.boostcd.jenkins.api.model.Microservice;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.openshift.restclient.model.IBuild;

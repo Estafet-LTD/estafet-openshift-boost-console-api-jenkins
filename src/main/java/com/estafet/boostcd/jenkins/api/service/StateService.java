@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.jenkins.service;
+package com.estafet.boostcd.jenkins.api.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,11 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.estafet.openshift.boost.commons.lib.date.DateUtils;
-import com.estafet.openshift.boost.console.api.jenkins.dao.EnvDAO;
-import com.estafet.openshift.boost.console.api.jenkins.dto.EnvState;
-import com.estafet.openshift.boost.console.api.jenkins.model.Env;
-import com.estafet.openshift.boost.console.api.jenkins.openshift.OpenShiftClient;
+import com.estafet.boostcd.commons.date.DateUtils;
+import com.estafet.boostcd.jenkins.api.dao.EnvDAO;
+import com.estafet.boostcd.jenkins.api.dto.EnvState;
+import com.estafet.boostcd.jenkins.api.model.Env;
+import com.estafet.boostcd.jenkins.api.openshift.OpenShiftClient;
 import com.openshift.restclient.model.IBuild;
 
 @Service

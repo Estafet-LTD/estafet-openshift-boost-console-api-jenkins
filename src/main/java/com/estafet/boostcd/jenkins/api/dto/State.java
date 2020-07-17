@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.jenkins.dto;
+package com.estafet.boostcd.jenkins.api.dto;
 
 public enum State {
 

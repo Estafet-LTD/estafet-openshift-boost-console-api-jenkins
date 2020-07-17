@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.jenkins.controller;
+package com.estafet.boostcd.jenkins.api.controller;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.estafet.openshift.boost.commons.lib.model.API;
-import com.estafet.openshift.boost.console.api.jenkins.dto.EnvState;
-import com.estafet.openshift.boost.console.api.jenkins.service.StateService;
+import com.estafet.boostcd.commons.model.API;
+import com.estafet.boostcd.jenkins.api.dto.EnvState;
+import com.estafet.boostcd.jenkins.api.service.StateService;
 
 @RestController
 public class StateController {
