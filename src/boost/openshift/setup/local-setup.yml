@@ -1,5 +1,5 @@
 setup:
   - name: create-postgres-db
     app: jenkins-api
-    repo: https://github.com/boostcd/jenkins-api.git
+    repo: jenkins-api
     reset_db: true
