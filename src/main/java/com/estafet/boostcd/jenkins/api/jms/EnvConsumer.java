@@ -5,14 +5,14 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import com.estafet.boostcd.jenkins.api.service.EnvironmentService;
-import com.estafet.openshift.boost.messages.environments.Environment;
+import com.estafet.openshift.boost.messages.environments.Environments;
 
 import io.opentracing.Tracer;
 
 @Component
 public class EnvConsumer {
 
-	public final static String TOPIC = "env.topic";
+	public final static String TOPIC = "environments.topic";
 
 	@Autowired
 	private Tracer tracer;
@@ -23,7 +23,7 @@ public class EnvConsumer {
 	@JmsListener(destination = TOPIC, containerFactory = "myFactory")
 	public void onMessage(String message) {
 		try {
-			environmentService.updateEnv(Environment.fromJSON(message));
+			environmentService.updateEnv(Environments.fromJSON(message));
 		} finally {
 			if (tracer.activeSpan() != null) {
 				tracer.activeSpan().close();

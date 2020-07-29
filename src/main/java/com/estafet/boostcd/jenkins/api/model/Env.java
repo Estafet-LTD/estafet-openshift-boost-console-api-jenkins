@@ -7,19 +7,31 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.estafet.openshift.boost.messages.environments.Environment;
 import com.estafet.openshift.boost.messages.environments.EnvironmentApp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "ENV")
 public class Env {
 
 	@Id
-	@Column(name = "ENV_ID", nullable = false)
+	@SequenceGenerator(name = "ENV_ID_SEQ", sequenceName = "ENV_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ENV_ID_SEQ")
+	@Column(name = "ENV_ID")
+	private Long id;
+	
+	@Column(name = "ENV_NAME", nullable = false)
 	private String name;
 
 	@Column(name = "UPDATED_DATE", nullable = false)
@@ -33,6 +45,27 @@ public class Env {
 
 	@OneToMany(mappedBy = "env", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Microservice> microservices = new HashSet<Microservice>();
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "PRODUCT_ID", nullable = false, referencedColumnName = "PRODUCT_ID", foreignKey = @ForeignKey(name = "ENV_TO_PRODUCT_FK"))
+	private Product product;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 
 	public void addMicroservice(Microservice microservice) {
 		microservices.add(microservice);
