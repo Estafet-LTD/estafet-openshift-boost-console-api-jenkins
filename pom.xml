@@ -10,7 +10,7 @@
 	</parent>
 	
 	<properties>
-		<microservice>console-jenkins-api</microservice>
+		<microservice>jenkins-api</microservice>
 		<entity.package>com.estafet.boostcd.jenkins.api.model</entity.package>
 	</properties>
 	
@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>com.estafet.boostcd</groupId>
 			<artifactId>ddl-lib</artifactId>
-			<version>0.0.16-SNAPSHOT</version>
+			<version>0.0.17-SNAPSHOT</version>
 			<scope>runtime</scope>
 		</dependency>	
 		<dependency>
