@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.estafet.boostcd.commons.date.DateUtils;
 import com.estafet.boostcd.jenkins.api.dao.EnvDAO;
+import com.estafet.boostcd.jenkins.api.dao.ProductDAO;
 import com.estafet.boostcd.jenkins.api.dto.EnvState;
 import com.estafet.boostcd.jenkins.api.model.Env;
 import com.estafet.boostcd.openshift.OpenShiftClient;
@@ -30,22 +31,25 @@ public class StateService {
 
 	@Autowired
 	private EnvDAO envDAO;
+	
+	@Autowired
+	private ProductDAO productDAO;
 
 	public List<EnvState> getStates(String productId) {
 		Map<String, IBuild> builds = latestBuilds(productId);
 		List<EnvState> states = new ArrayList<EnvState>();
-		for (Env env : envDAO.getEnvs()) {
-			states.add(getState(env.getName(), builds));	
+		for (Env env : productDAO.getProduct(productId).getEnvs()) {
+			states.add(getState(productId, env.getName(), builds));	
 		}
 		return states;
 	}
 
 	public EnvState getState(String productId, String env) {
-		return getState(env, latestBuilds(productId));
+		return getState(productId, env, latestBuilds(productId));
 	}
 
-	private EnvState getState(String envId, Map<String, IBuild> builds) {
-		return EnvState.builder().setEnv(envDAO.getEnv(envId)).setBuilds(builds).build();
+	private EnvState getState(String productId, String envId, Map<String, IBuild> builds) {
+		return EnvState.builder().setEnv(envDAO.getEnv(productId, envId)).setBuilds(builds).build();
 	}
 
 	private Map<String, IBuild> latestBuilds(String productId) {

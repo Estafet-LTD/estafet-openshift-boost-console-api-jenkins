@@ -1,6 +1,4 @@
 config_map: 
-  - name: PRODUCT
-    value: "{{ product.name }}"
   - name: OPENSHIFT_HOST_PORT
     value: "{{ openshift_host_port }}"       
   - name: JBOSS_A_MQ_BROKER_URL

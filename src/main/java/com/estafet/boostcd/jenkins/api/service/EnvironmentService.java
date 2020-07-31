@@ -28,7 +28,7 @@ public class EnvironmentService {
 			productDAO.create(product);
 		}
 		for (Environment environment : environments.getEnvironments()) {
-			Env oldEnv = envDAO.getEnv(environment.getName());
+			Env oldEnv = envDAO.getEnv(product.getProductId(), environment.getName());
 			Env newEnv = Env.getEnv(environment);
 			if (oldEnv == null) {
 				product.addEnv(newEnv);
