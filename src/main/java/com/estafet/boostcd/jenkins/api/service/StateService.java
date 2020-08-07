@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.estafet.boostcd.commons.date.DateUtils;
 import com.estafet.boostcd.jenkins.api.dao.EnvDAO;
@@ -35,6 +36,7 @@ public class StateService {
 	@Autowired
 	private ProductDAO productDAO;
 
+	@Transactional(readOnly = true)
 	public List<EnvState> getStates(String productId) {
 		Map<String, IBuild> builds = latestBuilds(productId);
 		List<EnvState> states = new ArrayList<EnvState>();
@@ -44,6 +46,7 @@ public class StateService {
 		return states;
 	}
 
+	@Transactional(readOnly = true)
 	public EnvState getState(String productId, String env) {
 		return getState(productId, env, latestBuilds(productId));
 	}
