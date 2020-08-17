@@ -39,4 +39,9 @@ public class EnvironmentService {
 		}
 	}
 
+	@Transactional
+	public void deleteEnvironments(Environments environments) {
+		productDAO.deleteProduct(environments.getProductId());
+	}
+
 }

@@ -28,5 +28,12 @@ public class ProductDAO {
 		entityManager.persist(product);
 		return product;
 	}
+
+	public void deleteProduct(String productId) {
+		Product product = getProduct(productId);
+		if (product != null) {
+			entityManager.remove(product);	
+		}
+	}
 	
 }
